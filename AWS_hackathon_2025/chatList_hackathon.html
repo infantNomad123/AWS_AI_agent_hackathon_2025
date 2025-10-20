@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="chatList.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profileContainer">
+            <div class="userProfile">
+                <div class="topRightCorner">
+                    <div class="profile">
+                        <img class="profilePic" src="profileuser.jpg" alt="">
+                    </div>
+                    <div class="username"><b>user</b></div>
+                    <button class="profileSetting"><i class="fa-solid fa-caret-down"></i></button>
+                    <div class="dropDown hide">
+                        <div class="viewProfile">
+                            <i class="fa-regular fa-user"></i>
+                            <span>View Profile</span>
+                        </div>
+                        <div class="logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </div>
+                        <div class="setting">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Setting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="onlineUsersContainer">
+            <h2>Online users</h2>
+            <div class="onlineUsers">
+  
+            </div>
+
+        </div>
+
+        <div class="chatCols">
+        
+            <div class="chatLists">
+                <div class="chatHeader">
+                    <h2>Chats</h2>
+                </div>
+                <div class="chattingRoom">
+                    
+                </div>
+                
+            </div><br><br>
+
+            <div class="chat">
+                <div class="to">
+                    <h2 class="toName"></h2>
+                </div>
+                <div class="chatContainer">
+
+
+                </div>
+                <div class="chatField">
+                    <textarea></textarea>
+                    <button class="send">send</button>
+                </div>
+
+            </div>
+ 
+            <div class="threatPeopleDetector">
+              <div class="subThreatContainer">
+                <div class="percentageContainer">
+                  <div class="firstLayer">
+                    <div class="percentage"></div>
+                  </div>
+                </div>
+                <div class="numberOfPeople"><b class="abusivePeople"></b></div>
+                <h4> abusive people found today</h2>
+              </div>
+            </div>
+        </div><br><br>
+    </div>
+
+    <script type="module" src="chatList.js"></script>
+</body>
+</html>
+
+
+
