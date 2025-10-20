@@ -247,6 +247,9 @@ function connect(){
                  socket.send(JSON.stringify({"action":"setName", "name":currentUser}))
              }
              socket.send(JSON.stringify({"action":"getMessage"}))    
+             setInterval(() => {
+                socket.send(JSON.stringify({ action: 'ping' })); // Or a specific heartbeat message
+            }, 30000)
         })
         
         socket.addEventListener('message', (event) => {
@@ -302,6 +305,13 @@ function connect(){
                     console.log("data.from:", data.from, "!== currentChatPartner:", currentChatPartner);
                 }
             }
+            //Heartbeat implemented to maintain connection
+            else if(data.pong){
+                setInterval(() => {
+                    console.log(data.pong);
+                }, 30000)
+
+            }
             
             else if (data.result || data.highestScoresResult || data.noOfPeople || data.scoreLengths) {
                 console.log(`Highest Threat: ${JSON.stringify(data.result)} highest scores:${data.highestScoresResult} no of people:${data.noOfPeople} score length:${data.scoreLengths}`);
@@ -311,16 +321,20 @@ function connect(){
                 const countedUsers = new Set();
                 for(const s of result){
                   if(s.sender){
+                      if(s.sender == b.textContent){
+                         warningCount+=1
+                      }
                       if(countedUsers.has(s.sender)){
                         continue;
+                      }else{
+                        countedUsers.add(s.sender)
+                        noOfAbusivePeople+=1;
+                        
                       }
-                      countedUsers.add(s.sender)
-                      noOfAbusivePeople=countedUsers.size;
-                      if(s.sender == b.textContent){
-                        warningCount+=1; 
-                      }
+                     
                     }
                 }
+                
                 if(warningCount == 1){
                   document.querySelector(".profile").style.border = "3px solid yellow";
                 }else if(warningCount == 2){
@@ -329,6 +343,8 @@ function connect(){
                   //  socket.send(JSON.stringify({"action":"deleteName", "name":b.textContent})) ;
                    document.querySelector(".profile").style.border = "3px solid red";
                    alert("Connection closed: User blocked for community guideline abuse.") 
+                   socket.send(JSON.stringify({"action":"deleteName", "name": b.textContent}))
+                   window.location.href = "userBan.html";
                 }
                 const percentageOfAbuser = Math.floor((noOfAbusivePeople/nop*100).toFixed(2))
                 let target = percentageOfAbuser; 
@@ -426,11 +442,11 @@ function connect(){
         socket.addEventListener('close', () => {
             isConnected = false;
             console.log("WebSocket closed. Attempting reconnect in 3 seconds...");
-            setTimeout(() => {
-                if (currentUser) {
-                    connect(); 
-                }
-            }, 3000); 
+            // setTimeout(() => {
+            //     if (currentUser) {
+            //         connect(); 
+            //     }
+            // }, 3000); 
         })  
     } else {
         return Promise.resolve();
