@@ -8,3 +8,4 @@ The first two warnings would be determined by a border color around the profile 
 
 Lambda_sdk.js file is a backend code stored in aws lambda that connects s3 bucket to dynamodb via API Gatway to fetch data.
 
+Abusive_people_detection_AI.py is a code stored on Jupiter notebook run by sagemaker.
